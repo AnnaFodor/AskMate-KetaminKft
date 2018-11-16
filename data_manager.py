@@ -143,7 +143,8 @@ def add_answer(cursor, new_answer):
 @connection.connection_handler
 def search_question(cursor, search_parameter):
     cursor.execute('''
-                    SELECT id, vote_number, title, submission_time FROM question
+                    SELECT id, vote_number, title, submission_time 
+                    FROM question
                     WHERE title iLIKE %(search_parameter)s;
                     ''',
                    {"search_parameter": '%'+search_parameter +'%'})
