@@ -175,3 +175,57 @@ def add_comment(cursor, question_id, message):
                     "message": message,
                     "submission_time": submission_time,
                     "edited_count": edited_count})
+
+
+@connection.connection_handler
+def get_question_tags(cursor, question_id):
+    cursor.execute('''
+                    SELECT name
+                    FROM tag
+                    INNER JOIN question_tag ON tag.id = question_tag.tag_id
+                    WHERE question_id = %(question_id)s;
+                    ''',
+                   {'question_id': question_id})
+    tags = cursor.fetchall()
+    return tags
+
+
+@connection.connection_handler
+def get_all_tags(cursor):
+    cursor.execute('''
+                    SELECT name
+                    FROM tag;''')
+    tags = cursor.fetchall()
+    return tags
+
+
+@connection.connection_handler
+def create_new_tag(cursor, new_tag_name):
+    cursor.execute('''
+                    INSERT INTO tag (name)
+                    VALUES (%(new_tag_name)s);
+                    ''',
+                   {'new_tag_name': new_tag_name})
+
+
+@connection.connection_handler
+def fetch_tag_id_by_tag_name(cursor, tag_name):
+    cursor.execute('''
+                    SELECT id
+                    FROM tag
+                    WHERE name = %(tag_name)s;
+                    ''',
+                   {"tag_name": tag_name})
+    tag_id = cursor.fetchone()
+    return tag_id
+
+
+@connection.connection_handler
+def add_tag_to_current_question(cursor, question_id, tag_id):
+    cursor.execute('''
+                    INSERT INTO question_tag (question_id, tag_id)
+                    VALUES (%(question_id)s, %(tag_id)s);
+                    ''',
+                   {"question_id": question_id, "tag_id": tag_id})
+
+

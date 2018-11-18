@@ -38,7 +38,9 @@ def route_question(id):
         questions = data_manager.get_question_details(id)
         answers = data_manager.get_answer_details(id)
         comments = data_manager.get_comments(id)
-        return render_template("question.html", question=questions, answers=answers, comments=comments)
+        tags = data_manager.get_question_tags(id)
+        all_tags = data_manager.get_all_tags()
+        return render_template("question.html", question=questions, answers=answers, comments=comments, tags=tags, all_tags=all_tags)
 
 
 @app.route("/search_question", methods=["POST"])
@@ -106,8 +108,29 @@ def add_comment(id):
     return redirect("/question/" + str(id))
 
 
+@app.route("/question/<id>/add_tag", methods=["GET", "POST"])
+def add_new_tag(id):
+    if request.method == "GET":
+        tags = data_manager.get_all_tags()
+        return render_template("addtag.html", tags=tags, question_id=id)
+
+    new_tag_name = request.form["new_tag_name"]
+    data_manager.create_new_tag(new_tag_name)
+    return redirect("question/" + str(id))
+
+
+@app.route("/question/add_new_tag_to_question/<id>", methods=["POST"])
+def add_new_tag_to_question(id):
+    tag_to_add = request.form["available_tags"]
+    tag_id = data_manager.fetch_tag_id_by_tag_name(tag_to_add)
+    data_manager.add_tag_to_current_question(id, tag_id["id"])
+    return redirect("/question/" + str(id))
+
+
 if __name__ == "__main__":
     app.run(
         debug=True,
         port=5000
     )
+
+

@@ -26,6 +26,48 @@
     </table>
     <h3>{{ question["message"] }}</h3>
 
+    <p>TAGS</p>
+    <table align="center">
+        <tr>
+            {% for element in tags %}
+                {% for key in element %}
+                    <td>{{ element[key] }}</td>
+                {% endfor %}
+            {% endfor %}
+        </tr>
+    </table>
+
+    <p>
+        <table align="center">
+            <tr>
+                <form action="/question/add_new_tag_to_question/{{ question["id"] }}" method="post">
+                <td>
+                    <select name="available_tags">
+                        <option value="" disabled selected hidden>Select new tag to add</option>
+                        {% for element in all_tags  %}
+                            {% for key in element %}
+                            <option value="{{ element[key] }}">{{ element[key] }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Update question tags">
+                </td>
+                </form>
+            </tr>
+        </table>
+    </p>
+
+
+    <p>
+        <form action="/question/{{ question["id"] }}/add_tag" method="get">
+            <input type="submit" name="go_to_add_tag_page" value="Need a new tag? Add it!">
+        </form>
+    </p>
+
+    <br>
+    <br>
 
     <table align="center">
         {% for item in answers %}
