@@ -133,8 +133,8 @@ def add_new_tag_to_question(id):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     user_login_data = {}
-    users_data = data_manager.get_login_data()
     if request.method == "POST":
+        users_data = data_manager.get_login_data()
         user_login_data["email"] = request.form["email"]
         user_login_data["password"] = request.form["password"]
         for user in users_data:
