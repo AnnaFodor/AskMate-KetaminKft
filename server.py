@@ -141,7 +141,7 @@ def login():
             if user["email"] == user_login_data["email"] and user["password"] == user_login_data["password"]:
                 return redirect(url_for("route_list"))
         message = "Incorrect email or password!"
-        return redirect('login.html', message=message)
+        return render_template('login.html', message=message)
     else:
         message = "Please enter your email and password!"
         return render_template("login.html", message=message)
