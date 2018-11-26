@@ -237,22 +237,12 @@ def register_user(cursor, usr_input):
     cursor.execute(query, usr_input)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@connection.connection_handler
+def get_login_data(cursor):
+    cursor.execute('''
+                   SELECT email, password FROM user;
+                   ''')
+    details = cursor.fetchall()
+    return details
 
 

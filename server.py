@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, session
+import os
 import data_manager
 import util
 
 app = Flask(__name__)
-
+app.secret_key = os.urandom(24)
 
 @app.route("/")
 def login_user():
@@ -18,10 +19,6 @@ def register_new_user():
         data_manager.register_user(usr_input)
         return redirect("/")
     return render_template("login_page.html", action="new_user")
-
-
-
-
 
 
 @app.route("/index", methods=["POST", "GET"])
@@ -131,6 +128,24 @@ def add_new_tag_to_question(id):
     tag_id = data_manager.fetch_tag_id_by_tag_name(tag_to_add)
     data_manager.add_tag_to_current_question(id, tag_id["id"])
     return redirect("/question/" + str(id))
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    user_login_data = {}
+    users_data = data_manager.get_login_data()
+    if request.method == "POST":
+        user_login_data["email"] = request.form["email"]
+        user_login_data["password"] = request.form["password"]
+        for user in users_data:
+            if user["email"] == user_login_data["email"] and user["password"] == user_login_data["password"]:
+                return redirect(url_for("route_list"))
+        message = "Incorrect email or password!"
+        return redirect('login.html', message=message)
+    else:
+        message = "Please enter your email and password!"
+        return render_template("login.html", message=message)
+
 
 
 if __name__ == "__main__":
