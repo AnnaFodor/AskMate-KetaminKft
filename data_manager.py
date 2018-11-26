@@ -2,6 +2,7 @@
 
 import connection
 from datetime import datetime
+from psycopg2 import sql
 
 
 @connection.connection_handler
@@ -227,5 +228,31 @@ def add_tag_to_current_question(cursor, question_id, tag_id):
                     VALUES (%(question_id)s, %(tag_id)s);
                     ''',
                    {"question_id": question_id, "tag_id": tag_id})
+
+
+@connection.connection_handler
+def register_user(cursor, usr_input):
+    query = sql.SQL(''' INSERT INTO {} (first_name, last_name, email, password) 
+                VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s) ''').format(sql.Identifier("user"))
+    cursor.execute(query, usr_input)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

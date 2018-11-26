@@ -1,12 +1,30 @@
 from flask import Flask, render_template, request, redirect
 import data_manager
-import connection
-import time
+import util
 
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route("/")
+def login_user():
+    return render_template("login_page.html", action="login")
+
+
+@app.route("/registration", methods=["GET", "POST"])
+def register_new_user():
+    if request.method == "POST":
+        usr_input = request.form.to_dict()
+        usr_input["password"] = util.hash_password(usr_input["password"])
+        data_manager.register_user(usr_input)
+        return redirect("/")
+    return render_template("login_page.html", action="new_user")
+
+
+
+
+
+
+@app.route("/index", methods=["POST", "GET"])
 def route_list():
     if request.method == "GET":
         questions = data_manager.show_questions()
@@ -29,7 +47,7 @@ def route_ask_question():
         }
 
         data_manager.add_new_question(new_question)
-        return redirect("/")
+        return redirect("/index")
 
 
 @app.route("/question/<id>", methods=["GET", "POST"])
@@ -50,33 +68,21 @@ def search_question():
     return render_template("list.html", results=search_result, action="search")
 
 
-@app.route("/answer/<answer_id>/delete/<id_>")
-def route_delete_answer(answer_id, id_):
-    pass
 
 
 @app.route("/question/vote_up/<id>", methods=["POST"])
 def route_question_voting_up(id):
     vote = "Vote up"
     data_manager.change_vote_number(vote, id)
-    return redirect("/")
+    return redirect("/index")
 
 
 @app.route("/question/vote_down/<id>", methods=["POST"])
 def route_question_voting_down(id):
     vote = "Vote down"
     data_manager.change_vote_number(vote, id)
-    return redirect("/")
+    return redirect("/index")
 
-
-@app.route("/question/<id>/<vote>/<submission_time>")
-def route_answer_voting(id, vote, submission_time):
-    pass
-
-
-@app.route("/question/<id>/edit", methods=["GET", "POST"])
-def route_edit_question(id):
-    pass
 
 
 @app.route("/answer/<answer_id>/edit", methods=["GET", "POST"])
@@ -98,7 +104,7 @@ def route_add_answer(id):
         "answer_text": request.form["answer_text"]
     }
     data_manager.add_answer(new_answer)
-    return redirect("/")
+    return redirect("/index")
 
 
 @app.route("/add_comment/<id>", methods=["POST"])
