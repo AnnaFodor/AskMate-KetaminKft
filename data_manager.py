@@ -7,11 +7,9 @@ from psycopg2 import sql
 
 @connection.connection_handler
 def show_questions(cursor):
-    cursor.execute('''
-                    SELECT id, vote_number, title, submission_time FROM question;
-                    ''')
-    details = cursor.fetchall()
-    return details
+    query = """SELECT id, vote_number, title, submission_time FROM question;"""
+    cursor.execute(query)
+    return cursor.fetchall()
 
 
 @connection.connection_handler
@@ -106,23 +104,10 @@ def get_current_answer_details(cursor, id, new_message):
 
 
 @connection.connection_handler
-def add_new_question(cursor, new_question):
-    submission_time = datetime.now()
-    view_number = 0
-    vote_number = 0
-    title = new_question["question_subject"]
-    message = new_question["question_text"]
-    image = new_question["url"]
-    cursor.execute('''
-                    INSERT INTO question (submission_time, view_number, vote_number, title, message, image)
-                    VALUES ( %(submission)s, %(view_number)s, %(vote_number)s, %(title)s, %(message)s, %(image)s);
-                    ''',
-                   {"submission": submission_time,
-                    "view_number": view_number,
-                    "vote_number": vote_number,
-                    "title": title,
-                    "message": message,
-                    "image": image})
+def add_new_question(cursor, usr_input):
+    query = """ INSERT INTO question (submission_time, title, message, image, user_id)
+                VALUES ( %(submission_time)s, %(title)s, %(message)s, %(image)s, %(user_id)s);"""
+    cursor.execute(query,usr_input)
 
 
 @connection.connection_handler

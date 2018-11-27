@@ -5,13 +5,25 @@
     <title>Login</title>
 </head>
 <body>
-    <p>{{ message }}</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <form action="/login" method="post">
-        <p>Email</p>
-        <p><input type="text" name="email"></p>
-        <p>Password</p>
-        <p><input type="text" name="password"></p>
-        <p><input type="submit"></p>
+        <fieldset>
+            <legend>Please enter your email and password!</legend>
+            <p>Email</p>
+            <p><input type="text" name="email"></p>
+            <p>Password</p>
+            <p><input type="text" name="password"></p>
+            <p><input type="submit"></p>
+        </fieldset>
     </form>
 </body>
 </html>

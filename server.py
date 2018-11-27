@@ -1,10 +1,24 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 import data_manager
 import util
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
+
+@app.before_first_request
+def clear_session():
+    session.clear()
+
+# def login_required(f):
+#     @wraps(f)
+#     def decorated_function(*args, **kwargs):
+#         if g.user is None:
+#             return redirect(url_for('login', next=request.url))
+#         return f(*args, **kwargs)
+#     return decorated_function
 
 @app.route("/")
 def login_user():
@@ -34,18 +48,13 @@ def route_list():
 
 @app.route("/ask-question", methods=["GET", "POST"])
 def route_ask_question():
-    if request.method == "GET":
-        return render_template('ask-question.html')
-    else:
-        new_question = {
-            "question_subject": request.form["question_subject"],
-            "question_text": request.form["question_text"],
-            "url": request.form["url"]
-        }
-
-        data_manager.add_new_question(new_question)
-        return redirect("/index")
-
+    if request.method == "POST":
+        usr_input = request.form.to_dict()
+        usr_input['submission_time'] = datetime.now()
+        usr_input['user_id'] = session['user_id']
+        data_manager.add_new_question(usr_input)
+        return redirect(url_for('route_list'))
+    return render_template('ask-question.html')
 
 @app.route("/question/<id>", methods=["GET", "POST"])
 def route_question(id):
@@ -130,24 +139,18 @@ def add_new_tag_to_question(id):
     return redirect("/question/" + str(id))
 
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    user_login_data = {}
     if request.method == "POST":
-        user_login_data["email"] = request.form["email"]
-        user_login_data["password"] = request.form["password"]
-        user_data = data_manager.get_login_data_from_email(user_login_data["email"])
-        if user_data != None:
-            plain_tetxt_password = (user_login_data["password"])
-            hashed_password = user_data['password']
-            verification = util.verify_password(plain_tetxt_password, hashed_password)
-            if verification:
-                return redirect(url_for("route_list"))
-        message = "Incorrect email or password!"
-        return render_template('login.html', message=message)
-    else:
-        message = "Please enter your email and password!"
-        return render_template("login.html", message=message)
+        user_data = data_manager.get_login_data_from_email(request.form["email"])
+        if user_data and util.verify_password(request.form['password'], user_data['password']):
+            session['user_id'], session['first_name'] = user_data['id'], user_data['first_name']
+            flash(session['first_name'])
+            return redirect(url_for("route_list"))
+        flash('Incorrect e-mail or password!')
+        return render_template('login.html')
+    return render_template("login.html")
 
 
 
