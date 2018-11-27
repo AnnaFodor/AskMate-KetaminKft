@@ -134,11 +134,14 @@ def add_new_tag_to_question(id):
 def login():
     user_login_data = {}
     if request.method == "POST":
-        users_data = data_manager.get_login_data()
         user_login_data["email"] = request.form["email"]
         user_login_data["password"] = request.form["password"]
-        for user in users_data:
-            if user["email"] == user_login_data["email"] and user["password"] == user_login_data["password"]:
+        user_data = data_manager.get_login_data_from_email(user_login_data["email"])
+        if user_data != None:
+            plain_tetxt_password = (user_login_data["password"])
+            hashed_password = user_data['password']
+            verification = util.verify_password(plain_tetxt_password, hashed_password)
+            if verification:
                 return redirect(url_for("route_list"))
         message = "Incorrect email or password!"
         return render_template('login.html', message=message)

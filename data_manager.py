@@ -238,11 +238,19 @@ def register_user(cursor, usr_input):
 
 
 @connection.connection_handler
-def get_login_data(cursor):
+def get_user_data(cursor):
     cursor.execute('''
-                   SELECT email, password FROM "user";
+                   SELECT * FROM "user";
                    ''')
     details = cursor.fetchall()
     return details
 
 
+@connection.connection_handler
+def get_login_data_from_email(cursor, email):
+    query='''SELECT * FROM "user"
+             WHERE email=(%(email)s);
+           '''
+    params= {"email":email}
+    cursor.execute(query, params)
+    return cursor.fetchone()
