@@ -115,8 +115,13 @@ def route_add_answer(id):
 
 @app.route("/add_comment/<id>", methods=["POST"])
 def add_comment(id):
-    comment = request.form["comment_text"]
-    data_manager.add_comment(id, comment)
+    usr_input = request.form.to_dict()
+    usr_input['question_id'] = id
+    usr_input['submission_time'] = datetime.now()
+    usr_input['user_id'] = session['user_id']
+    usr_input['edited_count'] = 0
+    print(usr_input)
+    data_manager.add_comment(usr_input)
     return redirect("/question/" + str(id))
 
 
