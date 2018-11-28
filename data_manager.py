@@ -112,18 +112,9 @@ def add_new_question(cursor, usr_input):
 
 @connection.connection_handler
 def add_answer(cursor, new_answer):
-    submission_time = datetime.now()
-    question_id = new_answer["question_id"]
-    vote_number = 0
-    message = new_answer["answer_text"]
-    cursor.execute('''
-                   INSERT INTO answer(submission_time, vote_number, question_id, message)
-                   VALUES(%(submission_time)s, %(vote_number)s, %(question_id)s, %(message)s)
-                   ''',
-                   {"submission_time": submission_time,
-                    "vote_number": vote_number,
-                    "question_id": question_id,
-                    "message": message})
+    query = ''' INSERT INTO answer(submission_time, question_id, message, user_id)
+               VALUES (%(submission_time)s, %(question_id)s, %(message)s, %(user_id)s);'''
+    cursor.execute(query, new_answer)
 
 
 @connection.connection_handler

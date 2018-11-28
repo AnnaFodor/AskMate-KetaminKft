@@ -62,9 +62,9 @@ def route_question(id):
         questions = data_manager.get_question_details(id)
         answers = data_manager.get_answer_details(id)
         comments = data_manager.get_comments(id)
-        tags = data_manager.get_question_tags(id)
-        all_tags = data_manager.get_all_tags()
-        return render_template("question.html", question=questions, answers=answers, comments=comments, tags=tags, all_tags=all_tags)
+        # tags = data_manager.get_question_tags(id)
+        # all_tags = data_manager.get_all_tags()
+        return render_template("question.html", question=questions, answers=answers, comments=comments)
 
 
 @app.route("/search_question", methods=["POST"])
@@ -105,12 +105,12 @@ def route_edit_answer(answer_id):
 
 @app.route("/add_answer/<id>", methods=["POST"])
 def route_add_answer(id):
-    new_answer = {
-        "question_id": id,
-        "answer_text": request.form["answer_text"]
-    }
-    data_manager.add_answer(new_answer)
-    return redirect("/index")
+    new_answer_details = request.form.to_dict()
+    new_answer_details["submission_time"] = datetime.now()
+    new_answer_details["question_id"] = id
+    new_answer_details["user_id"] = session["user_id"]
+    data_manager.add_answer(new_answer_details)
+    return redirect(request.referrer)
 
 
 @app.route("/add_comment/<id>", methods=["POST"])
