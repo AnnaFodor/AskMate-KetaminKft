@@ -10,19 +10,31 @@
         {% block title_content %}
         <title>Ask mate - List</title>
         {% endblock title_content %}
+
+        {% if question_details %}
+        <h1>Edit question</h1>
+        {% else %}
         <h1>Ask a question</h1>
-        <form method="post" action="/ask-question">
+        {% endif %}
+
+        <form method="post"
+              {% if question_details %}
+              action="/edit_question/{{ question_details["id"] }}"
+              {% endif %}
+              {% if question_details == None %}
+              action="/ask-question">
+              {% endif %}
             <p>
                 <br>Question subject:
-                <br><input name="title">
+                <br><input name="title" value="{{ question_details["title"] }}">
             </p>
             <p>
                 <br>Describe your question:
-                <br><textarea name="message" rows="5" cols="40"></textarea>
+                <br><textarea name="message" rows="5" cols="40">{{ question_details["message"] }}</textarea>
             </p>
             <p>
                 <br>URL of your image:
-                <br><input type="text" name="image">
+                <br><input type="text" name="image" value="{{ question_details["image"] }}">
             </p>
                 <br><input type="submit" value="Submit">
         </form>

@@ -21,6 +21,12 @@
                 <h1>{{ question["title"] }}</h1>
             </td>
             <td>
+                <a href="/edit_question/{{ question["id"] }}" class="button">Edit Question</a>
+            </td>
+            <td>
+                <form method="post" action="/delete/{{ question["id"] }}">
+                    <input type="submit" value="Delete Question">
+                </form>
             </td>
         </tr>
     </table>

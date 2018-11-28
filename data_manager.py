@@ -111,6 +111,32 @@ def add_new_question(cursor, usr_input):
 
 
 @connection.connection_handler
+def edit_question(cursor, usr_input):
+    query="""UPDATE question
+             SET title = %(title)s,
+                message=%(message)s,
+                image=%(image)s
+             WHERE id=%(id)s;"""
+    cursor.execute(query, usr_input)
+
+
+@connection.connection_handler
+def delete_row(cursor, table_name, question_id):
+    query=sql.SQL("""DELETE FROM {}
+                     WHERE question_id= %(question_id)s;""").format(sql.Identifier(table_name))
+    params= {"question_id" : int(question_id)}
+    cursor.execute(query, params)
+
+
+@connection.connection_handler
+def delete_question(cursor, id):
+    query = """DELETE FROM question
+               WHERE id = %(id)s;"""
+    params = {"id": int(id)}
+    cursor.execute(query, params)
+
+
+@connection.connection_handler
 def add_answer(cursor, new_answer):
     query = ''' INSERT INTO answer(submission_time, question_id, message, user_id)
                VALUES (%(submission_time)s, %(question_id)s, %(message)s, %(user_id)s);'''

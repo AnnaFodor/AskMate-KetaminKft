@@ -54,7 +54,8 @@ def route_ask_question():
         usr_input['user_id'] = session['user_id']
         data_manager.add_new_question(usr_input)
         return redirect(url_for('route_list'))
-    return render_template('ask-question.html')
+    question_details = None
+    return render_template('ask-question.html', question_details=question_details)
 
 @app.route("/question/<id>", methods=["GET", "POST"])
 def route_question(id):
@@ -66,6 +67,24 @@ def route_question(id):
         # all_tags = data_manager.get_all_tags()
         return render_template("question.html", question=questions, answers=answers, comments=comments)
 
+@app.route("/delete/<id>", methods=["POST"])
+def delete(id):
+    tables = ["comment", "answer"]
+    for table in tables:
+        data_manager.delete_row(table, int(id))
+    data_manager.delete_question(id)
+    return redirect(url_for("route_list"))
+
+
+@app.route("/edit_question/<id>", methods=["GET", "POST"])
+def edit_question(id):
+    if request.method == "POST":
+        usr_input = request.form.to_dict()
+        usr_input["id"] = id
+        data_manager.edit_question(usr_input)
+        return redirect("/question/" + str(id))
+    question_details = data_manager.get_question_details(id)
+    return render_template("ask-question.html", question_details=question_details)
 
 @app.route("/search_question", methods=["POST"])
 def search_question():
