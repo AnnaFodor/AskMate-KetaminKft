@@ -13,11 +13,6 @@ def clear_session():
     session.clear()
 
 
-# @app.route("/")
-# def login_user():
-#     return render_template("login_page.html", action="login")
-
-
 @app.route("/registration", methods=["GET", "POST"])
 def register_new_user():
     if request.method == "POST":
@@ -25,7 +20,7 @@ def register_new_user():
         usr_input["password"] = util.hash_password(usr_input["password"])
         data_manager.register_user(usr_input)
         return redirect("/")
-    return render_template("login_page.html", action="new_user")
+    return render_template("registration.html", action="new_user")
 
 
 @app.route("/index", methods=["POST", "GET"])
@@ -48,6 +43,7 @@ def route_ask_question():
         data_manager.add_new_question(usr_input)
         return redirect(url_for('route_list'))
     return render_template('ask-question.html')
+
 
 @app.route("/question/<id>", methods=["GET", "POST"])
 def route_question(id):
