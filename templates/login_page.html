@@ -1,35 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Ask Mate - Login</title>
+    <title>Register new user</title>
 </head>
 <body>
-
-{% if action == "login" %}
-
-<br>Password placeholder
-
-<br>Username Placeholder
-
-<br> Submit placeholder
-
-<br><a href="/registration">Register</a>
-<br><a href="/login">Login</a>
-
-{% else %}
-
     <form method="post" action="/registration">
-
         <br><input type="text" name="first_name" placeholder="First Name">
         <br><input type="text" name="last_name" placeholder="Last Name">
         <br><input type="text" name="email" placeholder="E-mail Address">
         <br><input type="text" name="password" placeholder="Password">
         <br><input type="submit" value="Register User">
-
-
     </form>
-
-
-{% endif %}
 </body>
 </html>

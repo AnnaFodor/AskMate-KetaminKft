@@ -15,15 +15,18 @@
             </ul>
         {% endif %}
     {% endwith %}
-    <form action="/login" method="post">
-        <fieldset>
+    <fieldset>
+    <form action="/" method="post">
             <legend>Please enter your email and password!</legend>
             <p>Email</p>
             <p><input type="text" name="email"></p>
             <p>Password</p>
             <p><input type="text" name="password"></p>
-            <p><input type="submit"></p>
-        </fieldset>
+            <p><input type="submit" value="Login"></p>
     </form>
+    <form action="/registration" method="get">
+            <p><input type="submit" value="Registration"</p>
+    </form>
+    </fieldset>
 </body>
 </html>
