@@ -150,17 +150,10 @@ def get_comments(cursor, question_id):
 
 
 @connection.connection_handler
-def add_comment(cursor, question_id, message):
-    submission_time = datetime.now()
-    edited_count = 0
-    cursor.execute('''
-                   INSERT INTO comment(question_id, message, submission_time, edited_count)
-                   VALUES(%(question_id)s, %(message)s, %(submission_time)s, %(edited_count)s);
-                   ''',
-                   {"question_id": question_id,
-                    "message": message,
-                    "submission_time": submission_time,
-                    "edited_count": edited_count})
+def add_comment(cursor, usr_input):
+    query = """INSERT INTO comment (question_id, message, submission_time, edited_count, user_id)
+                VALUES (%(question_id)s, %(message)s, %(submission_time)s, %(edited_count)s, %(user_id)s);"""
+    cursor.execute(query, usr_input)
 
 
 @connection.connection_handler
