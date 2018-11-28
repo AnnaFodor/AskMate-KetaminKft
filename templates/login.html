@@ -1,11 +1,16 @@
+{% extends "layout.html" %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
+{% block body_content %}
 <body>
-
+{% block h1_content %}
+    <h1> ASK MATE </h1>
+{% endblock h1_content %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class=flashes>
@@ -15,15 +20,19 @@
             </ul>
         {% endif %}
     {% endwith %}
-    <form action="/login" method="post">
-        <fieldset>
+    <fieldset>
+    <form action="/" method="post">
             <legend>Please enter your email and password!</legend>
             <p>Email</p>
             <p><input type="text" name="email"></p>
             <p>Password</p>
-            <p><input type="text" name="password"></p>
-            <p><input type="submit"></p>
-        </fieldset>
+            <p><input type="password" name="password"></p>
+            <p><input type="submit" value="Login"></p>
     </form>
+    <form action="/registration" method="get">
+            <p><input type="submit" value="Registration"</p>
+    </form>
+    </fieldset>
 </body>
+{% endblock body_content%}
 </html>

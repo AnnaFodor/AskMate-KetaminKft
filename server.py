@@ -12,18 +12,6 @@ app.secret_key = os.urandom(24)
 def clear_session():
     session.clear()
 
-# def login_required(f):
-#     @wraps(f)
-#     def decorated_function(*args, **kwargs):
-#         if g.user is None:
-#             return redirect(url_for('login', next=request.url))
-#         return f(*args, **kwargs)
-#     return decorated_function
-
-@app.route("/")
-def login_user():
-    return render_template("login_page.html", action="login")
-
 
 @app.route("/registration", methods=["GET", "POST"])
 def register_new_user():
@@ -32,7 +20,7 @@ def register_new_user():
         usr_input["password"] = util.hash_password(usr_input["password"])
         data_manager.register_user(usr_input)
         return redirect("/")
-    return render_template("login_page.html", action="new_user")
+    return render_template("registration.html", action="new_user")
 
 
 @app.route("/index", methods=["POST", "GET"])
@@ -56,6 +44,7 @@ def route_ask_question():
         return redirect(url_for('route_list'))
     question_details = None
     return render_template('ask-question.html', question_details=question_details)
+
 
 @app.route("/question/<id>", methods=["GET", "POST"])
 def route_question(id):
@@ -91,8 +80,6 @@ def search_question():
     search_parameter = request.form["search_parameter"]
     search_result = data_manager.search_question(search_parameter)
     return render_template("list.html", results=search_result, action="search")
-
-
 
 
 @app.route("/question/vote_up/<id>", methods=["POST"])
@@ -164,7 +151,7 @@ def add_new_tag_to_question(id):
 
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         user_data = data_manager.get_login_data_from_email(request.form["email"])

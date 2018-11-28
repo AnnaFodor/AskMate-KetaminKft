@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% include 'header.html' %}
 
 <html>
     <head>
@@ -8,6 +7,9 @@
 
 {% block body_content %}
 <body>
+    {% block h1_content %}
+        <h1> ASK MATE </h1>
+    {% endblock h1_content %}
     <h2>{{ answer_detail['message'] }}</h2>
     <form method="post" action="/answer/{{ answer_detail["id"] }}/edit">
     <textarea name="edit_answer_text" rows="5" cols="40"></textarea>

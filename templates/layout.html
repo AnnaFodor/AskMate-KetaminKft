@@ -9,18 +9,17 @@
         <hr>
         {% block body_content %}
             {% block h1_content %}
-                <h1> ASK MATE - BY KETAMIN Kft. :D </h1>
-            {% endblock %}
-        {% endblock %}
+            {% endblock h1_content %}
+        {% endblock body_content%}
 
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+{#        {% with messages = get_flashed_messages() %}#}
+{#            {% if messages %}#}
+{#                <ul class=flashes>#}
+{#                    {% for message in messages %}#}
+{#                        <li>{{ message }}</li>#}
+{#                    {% endfor %}#}
+{#                </ul>#}
+{#            {% endif %}#}
+{#        {% endwith %}#}
     </body>
 </html>
