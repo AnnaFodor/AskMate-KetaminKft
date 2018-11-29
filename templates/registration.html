@@ -1,23 +1,35 @@
-{% extends "layout.html" %}
 
 
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
+
     <title>Register new user</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
-{% block body_content %}
+
 <body>
-{% block h1_content %}
-    <h1> ASK MATE </h1>
-{% endblock h1_content %}
+
+    <h1 id="login_register_header"> ASK . MATE </h1>
+
+    <div id="login_card" align="center">
+        <div id="login" align="center">
     <form method="post" action="/registration">
-        <br><input type="text" name="first_name" placeholder="First Name"><br>
-        <br><input type="text" name="last_name" placeholder="Last Name"><br>
-        <br><input type="text" name="email" placeholder="E-mail Address"><br>
-        <br><input type="password" name="password" placeholder="Password"><br>
-        <br><input type="submit" value="Register User">
+        <p>First Name:</p>
+        <br><input type="text" name="first_name" placeholder="First Name" class="credential_field"><br>
+        <p>Last Name:</p>
+        <br><input type="text" name="last_name" placeholder="Last Name" class="credential_field"><br>
+        <p>Email address:</p>
+        <br><input type="text" name="email" placeholder="E-mail Address" class="credential_field"><br>
+        <p>Password:</p>
+        <br><input type="password" name="password" placeholder="Password" class="credential_field"><br>
+        <br><input type="submit" value="Register User" id="register_button">
     </form>
+
+        </div>
+    </div>
 </body>
-{% endblock body_content %}
 </html>
