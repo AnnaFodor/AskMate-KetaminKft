@@ -48,7 +48,7 @@ def register_new_user():
 @login_required
 def route_list():
     if request.method == "GET":
-        questions = data_manager.show_questions()
+        questions = data_manager.show_questions_by_order('desc', 'time')
         return render_template('list.html', questions=questions, action=None)
     else:
         questions = data_manager.show_questions_by_order(request.form['direction'],
