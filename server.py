@@ -18,8 +18,12 @@ def register_new_user():
     if request.method == "POST":
         usr_input = request.form.to_dict()
         usr_input["password"] = util.hash_password(usr_input["password"])
-        data_manager.register_user(usr_input)
-        return redirect("/")
+        try:
+            data_manager.register_user(usr_input)
+            return redirect("/")
+        except Exception:
+            flash('Email already exists.')
+            return redirect("/")
     return render_template("registration.html", action="new_user")
 
 

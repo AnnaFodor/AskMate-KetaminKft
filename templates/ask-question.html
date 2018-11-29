@@ -1,16 +1,13 @@
 {% extends "layout.html" %}
-{% include 'header.html' %}
 
 <html>
     <head>
-        <title>Ask Question</title>
+        {% block title_content %}
+            <title>Ask Question</title>
+        {% endblock title_content %}
     </head>
     {% block body_content %}
     <body>
-        {% block title_content %}
-        <title>Ask mate - List</title>
-        {% endblock title_content %}
-
         {% if question_details %}
         <h1>Edit question</h1>
         {% else %}

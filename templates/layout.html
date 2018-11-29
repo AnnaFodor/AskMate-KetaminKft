@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
-    <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    {% block title_content %}{% endblock %}
+    <html>
+        <head>
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+                {% block title_content %}{% endblock %}
+        </head>
+        <body>
+            <hr>
+                {% block body_content %}
+                    {% block h1_content %}{% endblock h1_content %}
+                    {% block h2_content %}{% endblock h2_content %}
+                    {% block h4_content %}{% endblock h4_content %}
 
-    </head>
-    <body>
-        <hr>
-        {% block body_content %}
-            {% block h1_content %}
-            {% endblock h1_content %}
-        {% endblock body_content%}
-
+                {% endblock body_content%}
 {#        {% with messages = get_flashed_messages() %}#}
 {#            {% if messages %}#}
 {#                <ul class=flashes>#}
@@ -21,5 +21,5 @@
 {#                </ul>#}
 {#            {% endif %}#}
 {#        {% endwith %}#}
-    </body>
-</html>
+        </body>
+    </html>
