@@ -90,7 +90,8 @@ def delete_question(id):
             data_manager.delete_row("comment", "question_id", id)
             data_manager.delete_row("question", "id", id)
             return redirect(url_for("route_list"))
-    abort(404)
+    else:
+        return render_template("bazdmeg_magad")
 
 
 
@@ -105,7 +106,7 @@ def edit_question(id):
             return redirect("/question/" + str(id))
         question_details = data_manager.get_question_details(id)
         return render_template("ask-question.html", question_details=question_details)
-    abort(404)
+    return render_template("bazdmeg_magad")
 
 
 @app.route("/search_question", methods=["POST"])
