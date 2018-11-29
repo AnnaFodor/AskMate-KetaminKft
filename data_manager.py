@@ -121,19 +121,19 @@ def edit_question(cursor, usr_input):
 
 
 @connection.connection_handler
-def delete_row(cursor, table_name, question_id):
+def delete_row(cursor, table_name,column_name, column_id):
     query=sql.SQL("""DELETE FROM {}
-                     WHERE question_id= %(question_id)s;""").format(sql.Identifier(table_name))
-    params= {"question_id" : int(question_id)}
+                     WHERE {}= %(column_id)s;""").format(sql.Identifier(table_name),sql.Identifier(column_name))
+    params= {"column_id" : int(column_id)}
     cursor.execute(query, params)
 
 
-@connection.connection_handler
-def delete_question(cursor, id):
-    query = """DELETE FROM question
-               WHERE id = %(id)s;"""
-    params = {"id": int(id)}
-    cursor.execute(query, params)
+# @connection.connection_handler
+# def delete_question(cursor, id):
+#     query = """DELETE FROM question
+#                WHERE id = %(id)s;"""
+#     params = {"id": int(id)}
+#     cursor.execute(query, params)
 
 
 @connection.connection_handler
@@ -249,3 +249,12 @@ def get_login_data_from_email(cursor, email):
     params= {"email":email}
     cursor.execute(query, params)
     return cursor.fetchone()
+
+
+@connection.connection_handler
+def get_owner_by(cursor, table, column, value):
+    query = sql.SQL("""SELECT user_id FROM {} 
+               WHERE {}=%(value)s """).format(sql.Identifier(table),sql.Identifier(column))
+    params = { "value" : value}
+    cursor.execute(query,params)
+    return cursor.fetchone()["user_id"]

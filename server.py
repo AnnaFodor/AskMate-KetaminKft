@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, abort
 import os
 import data_manager
 import util
@@ -24,8 +24,10 @@ def login_required(f):
     return decorated_function
 
 
-
-
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -77,24 +79,30 @@ def route_question(id):
 
 @app.route("/delete/<id>", methods=["POST"])
 @login_required
-def delete(id):
-    tables = ["comment", "answer"]
-    for table in tables:
-        data_manager.delete_row(table, int(id))
-    data_manager.delete_question(id)
-    return redirect(url_for("route_list"))
+def delete_question(id):
+    if data_manager.get_owner_by("question", "id", id) == session['user_id']:
+        if request.method == "POST":
+            data_manager.delete_row("answer", "question_id", id)
+            data_manager.delete_row("comment", "question_id", id)
+            data_manager.delete_row("question", "id", id)
+            return redirect(url_for("route_list"))
+    else:
+        return render_template("bazdmeg_magad")
+
 
 
 @app.route("/edit_question/<id>", methods=["GET", "POST"])
 @login_required
 def edit_question(id):
-    if request.method == "POST":
-        usr_input = request.form.to_dict()
-        usr_input["id"] = id
-        data_manager.edit_question(usr_input)
-        return redirect("/question/" + str(id))
-    question_details = data_manager.get_question_details(id)
-    return render_template("ask-question.html", question_details=question_details)
+    if data_manager.get_owner_by("question","id",id) == session['user_id']:
+        if request.method == "POST":
+            usr_input = request.form.to_dict()
+            usr_input["id"] = id
+            data_manager.edit_question(usr_input)
+            return redirect("/question/" + str(id))
+        question_details = data_manager.get_question_details(id)
+        return render_template("ask-question.html", question_details=question_details)
+    return render_template("bazdmeg_magad")
 
 
 @app.route("/search_question", methods=["POST"])
@@ -192,6 +200,9 @@ def login():
         flash('Incorrect e-mail or password!')
         return render_template('login.html')
     return render_template("login.html")
+
+
+
 
 
 
