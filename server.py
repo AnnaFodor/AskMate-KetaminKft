@@ -205,6 +205,11 @@ def login():
     return render_template("login.html")
 
 
+@app.route("/users")
+@login_required
+def list_users():
+    users = data_manager.get_user_data()
+    return render_template("user.html", users=users)
 
 
 
