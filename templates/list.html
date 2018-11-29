@@ -41,12 +41,12 @@
             <tr>
             <form action="/question/vote_up/{{ item['id'] }}" method="post">
             <td>
-                <input type="submit" name="vote" value="Vote up" class="vote_button">
+                <input type="image" src="/static/like.png" alt="Submit" name="vote" value="Vote up" class="vote_button" height="30">
             </td>
             </form>
             <form action="/question/vote_down/{{ item['id'] }}" method="post">
             <td>
-                <input type="submit" value="Vote down" name="vote" class="vote_button">
+                <input type="image" src="/static/dislike.png" alt="Submit" name="vote" value="Vote down" class="vote_button" height="30">
             </td>
             </form>
                 {% for key in item %}
