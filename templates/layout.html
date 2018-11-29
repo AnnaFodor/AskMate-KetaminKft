@@ -13,8 +13,6 @@
 
         <div id="header">
             <div id="top1" class="button" ><a id="ask_question" href="/ask-question" >Ask a question</a></div>
-            <a href="{{ url_for("list_users") }}">Users</a>
-            <a href="{{ url_for("log_out") }}">Log out</a>
             <div id=top2" class="page_title" align="right">ASK . MATE</div>
 
         </div>
@@ -26,6 +24,15 @@
 
         {% block body_content %}
         {% endblock body_content%}
+
+        <footer id="footer_container">
+            <div id="footer_elements" align="center">
+            <a href="{{ url_for("log_out") }}" id="logout_button">LOGOUT</a>
+            <a href="{{ url_for("list_users") }}" id="list_users_button">Users</a>
+            <a href="{{ url_for("route_list") }}" id="home_button">Home</a>
+                <div id="footer_message"> Visit us at CodeCool - Project by Alina, Máté, Anna, Peti, Zoli</div>
+            </div>
+        </footer>
 
 </body>
 </html>

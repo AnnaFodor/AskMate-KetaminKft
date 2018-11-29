@@ -2,12 +2,12 @@
 
 <html>
     <head>
-        {% block title_content %}
             <title>Ask Question</title>
-        {% endblock title_content %}
+
     </head>
     {% block body_content %}
-    <body>
+
+        <div id="ask_card" align="center">
         {% if question_details %}
         <h1>Edit question</h1>
         {% else %}
@@ -23,18 +23,19 @@
               {% endif %}
             <p>
                 <br>Question subject:
-                <br><input name="title" value="{{ question_details["title"] }}">
+                <br><input name="title" value="{{ question_details["title"] }}" class="question_detail">
             </p>
             <p>
                 <br>Describe your question:
-                <br><textarea name="message" rows="5" cols="40">{{ question_details["message"] }}</textarea>
+                <br><textarea class="question_textarea" name="message" rows="5" cols="40">{{ question_details["message"] }}</textarea>
             </p>
             <p>
                 <br>URL of your image:
-                <br><input type="text" name="image" value="{{ question_details["image"] }}">
+                <br><input type="text" name="image" value="{{ question_details["image"] }}" class="question_detail">
             </p>
                 <br><input type="submit" value="Submit">
         </form>
-    </body>
+        </div>
+
     {% endblock body_content%}
 </html>

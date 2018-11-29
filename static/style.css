@@ -1,7 +1,7 @@
 body {
 	background: #222629;
 	font-family: 'Comfortaa', cursive;
-	color: white;
+	color: #c5C6C7;
 	margin-top: 10px;
 
 }
@@ -20,31 +20,31 @@ body {
 	font-size: 40px;
 	width: auto;
 	margin-left: 280px;
-	border: 3px solid #86C232;
+	border: 3px solid #66FCF1;
   	padding: 8px 16px;
 	border-radius: 100px;
-  	background: #86C232;
+  	background: #66FCF1;
 	font-weight: bolder;letter-spacing: 8px;
+	color: black;
 
 
 }
 
 .button{
   font-size: 30px;
-  border-radius: 2px;
+  border-radius: 40px;
   background:rgba(0,0,0,0);
-  border: 3px solid #86C232;
+  border: 3px solid #66FCF1;
   padding: 8px 16px;
   color: #000;
   margin-top:0px;
-  border-radius: 100px;
-  background: #86C232;
+  background: #66FCF1;
   height: 44px;
 }
 
 .button:hover, .button:focus, .button:link{
-	background: lightgreen;
-	color: #fff;
+	background: #45A29E;
+	color: black
 	text-decoration: none;
 }
 
@@ -68,7 +68,7 @@ body {
 	height: 20px;
 	padding 20px;
 	font-size: 1rem;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	border-radius: 20px;
 	background-color: #222629;
 	color: white;
@@ -80,12 +80,12 @@ body {
 }
 
 #search_button{
-	background-color: #86C232;
+	background-color: #66FCF1;
 	outline: none;
 	border-radius: 20px;
 	width: 9%;
 	padding-right: 5px;
-	color: white;
+	color: black;
 	height: 25px;
 	float: right;
 }
@@ -98,7 +98,7 @@ body {
 .dropdown{
 	background-color: #222629;
 	border-radius: 20px;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	width: 200px;
 	outline: none;
 	height: 20px;
@@ -107,12 +107,12 @@ body {
 }
 
 .sort_button{
-	background-color: #86C232;
+	background-color: #66FCF1;
 	outline: none;
 	border-radius: 20px;
 	width: 9%;
 	padding-right: 5px;
-	color: white;
+	color: black;
 	height: 20px;
 	font-size: 17;
 
@@ -121,7 +121,7 @@ body {
 
 #question_table_container{
 	margin-top: 10px;
-	border: 2px solid #86C232;
+	border: 2px solid #66FCF1;
 	border-radius: 20px;
 	width: 50%;
     height: auto;
@@ -152,15 +152,14 @@ body {
 	background-color: #222629;
 	outline: none;
 	border-radius: 20px;
-	border: 1px solid #86C232;
+	border: 0px solid #66FCF1;
 	padding-right: 5px;
-	color: white;
 	height: 40px;
 	font-size: 20px;
 }
 
 .question_link{
-	color: white;
+	color: black;
 }
 
 
@@ -169,7 +168,7 @@ body {
 	height: 100px;
 	margin-top: 45px;
 	margin-bottom: 20px;
-    border: 2px solid #86C232;
+    border: 2px solid #66FCF1;
     border-radius: 20px;
 
 }
@@ -189,15 +188,21 @@ body {
 }
 
 #edit_question_button{
-	float: right;
+    width: 156px;
+    margin-bottom: 3px;
 }
 
 #delete_question_button{
-	float: left;
+}
+
+#header_buttons{
+    float: right;
+    width: 25%;
+	display: inline-block;
 }
 
 #message_container{
-	margin-top: 70px;
+	margin-top: 100px;
     clear: both;
 	width: 100%;
 	letter-spacing: 2px;
@@ -207,7 +212,7 @@ body {
 	float: left;
 	width: 100%;
 	height: auto;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	border-radius: 20px;
 	padding: 10px;
 	table-layout: fixed;
@@ -232,7 +237,7 @@ body {
 	float: left;
 	width: 100%;
 	margin-top: 20px;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	border-radius: 20px;
 	padding: 10px;
 }
@@ -250,7 +255,7 @@ body {
 	background-color: #222629;
 	outline: none;
 	border-radius: 20px;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	padding-right: 5px;
 	color: white;
 	height: 40px;
@@ -264,7 +269,7 @@ body {
 	float: right;
 	width: 100%;
 	height: auto;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	border-radius: 20px;
 	padding: 10px;
 	table-layout: fixed;
@@ -275,7 +280,7 @@ body {
 	float: right;
 	width: 100%;
 	margin-top: 20px;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	border-radius: 20px;
 	padding: 10px;
 }
@@ -299,7 +304,7 @@ body {
 	background-color: #222629;
 	outline: none;
 	border-radius: 20px;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	padding-right: 5px;
 	color: white;
 	height: 40px;
@@ -329,14 +334,15 @@ body {
 #login_register_header{
 	font-size: 40px;
 	width: 98%;
-	border: 3px solid #86C232;
+	border: 3px solid #66FCF1;
   	padding: 8px 16px;
 	border-radius: 100px;
-  	background: #86C232;
+  	background: #66FCF1;
 	font-weight: bolder;
 	letter-spacing: 8px;
 	text-align: right;
 	margin-right: 10px;
+	color: black;
 }
 
 #login_card{
@@ -344,7 +350,7 @@ body {
 }
 
 #login{
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	width: 20%;
 	margin-top: 250px;
 	border-radius: 20px;
@@ -367,7 +373,7 @@ body {
 	background-color: #222629;
 	outline: none;
 	border-radius: 20px;
-	border: 1px solid #86C232;
+	border: 1px solid #66FCF1;
 	padding-right: 5px;
 	color: white;
 	height: 40px;
@@ -381,4 +387,135 @@ body {
 	height: 30px;
 	font-size: 20px;
 	border-radius: 20px;
+}
+
+#footer_container{
+    padding-top: 30px;
+    clear: both;
+    width: 100%;
+}
+
+#footer_elements{
+    padding: 20px;
+}
+
+#footer_message{
+	margin: 30px;
+	letter-spacing: 3px;
+	color: dimgrey;
+	font: italic;
+}
+
+#logout_button{
+ 	width: 15%;
+	background-color: #66FCF1;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #66FCF1;
+	padding-right: 5px;
+	color: black;
+	height: 40px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+    float: right;
+    padding-top: 10px;
+
+}
+
+#home_button{
+    width: 15%;
+	background-color: #66FCF1;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #66FCF1;
+	padding-right: 5px;
+	color: black;
+	height: 40px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+    float: left;
+    padding-top: 10px;
+}
+
+#list_users_button{
+    width: 15%;
+	background-color: #66FCF1;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #66FCF1;
+	padding-right: 5px;
+	color: black;
+	height: 40px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+    float: left;
+    padding-top: 10px;
+}
+
+.edit_button{
+	background-color: #222629;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #66FCF1;
+	padding-right: 5px;
+	color: white;
+	font-size: 20px;
+}
+
+
+.header_buttons{
+    background-color: #66FCF1;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #66FCF1;
+	padding-right: 5px;
+	color: black;
+	font-size: 20px;
+}
+
+#ask_card{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #66FCF1;
+    margin-top: 100px;
+    padding-bottom: 20px;
+    border-radius: 30px;
+}
+
+.question_detail{
+    width: 50%;
+    outline: none;
+    border-radius: 20px;
+}
+
+.question_textarea{
+    width: 80%;
+    outline: none;
+    border-radius: 20px;
+}
+
+#edit_answer_card{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #66FCF1;
+    margin-top: 100px;
+    padding-bottom: 20px;
+    border-radius: 30px;
+}
+
+.textbox_content{
+	font-size: 20px;
+	height: 70px;
+	width: 80%;
+    outline: none;
+    border-radius: 20px;
+}
+
+.question_link{
+	color: white;
 }

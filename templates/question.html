@@ -9,20 +9,21 @@
             <h1 class="record_title">{{ question["title"] }}</h1>
             </div>
 
+            <div id="header_buttons">
             <div id="question_buttons">
                 <div id="edit_question_button">
                 <form method="get" action="/edit_question/{{ question["id"] }}" >
-                <input type="submit" value="Edit Question">
+                <input type="submit" value="Edit Question" class="header_buttons">
                 </form>
                 </div
             </div>
 
                 <div id="delete_question_button">
                 <form method="post" action="/delete/{{ question["id"] }}">
-                <input type="submit" value="Delete Question">
+                <input type="submit" value="Delete Question" class="header_buttons">
                 </form>
                 </div>
-
+            </div>
     </div>
 
 
@@ -44,7 +45,7 @@
             {% endfor %}
             <td>
                 <form action="/answer/{{ item["id"] }}/edit" method="get">
-                <input type="submit" name="edit_answer" value="Edit answer" >
+                <input type="submit" name="edit_answer" value="Edit answer" class="edit_button">
                 </form>
             </td>
         </tr>

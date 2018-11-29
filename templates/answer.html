@@ -1,34 +1,23 @@
 {% extends "layout.html" %}
 
-<html>
 
-    <head>
 
-        {% block title_content %}
-            <title>Answer</title>
-        {% endblock %}
+    <title>Answer</title>
 
-    </head>
 
-{% block body_content %}
-    <body>
+        {% block body_content %}
 
-        {% block h1_content %}
-            <h1> ASK MATE </h1>
-        {% endblock h1_content %}
+            <div id="edit_answer_card" align="center">
 
-        {% block h2_content %}
-            <h2> {{ answer_detail['message'] }} </h2>
-        {% endblock h2_content %}
+                <h1> Edit Answer </h1>
 
-        <form method="post" action="/answer/{{ answer_detail["id"] }}/edit">
 
-            <textarea name="edit_answer_text" rows="5" cols="40"></textarea>
-            <input type="submit" value="Edit answer">
+            <form method="post" action="/answer/{{ answer_detail["id"] }}/edit">
+                <textarea name="edit_answer_text" class="textbox_content">{{ answer_detail['message'] }}</textarea>
+                <p><input type="submit" value="Edit answer" class="edit_button"></p>
+            </form>
+            </div>
 
-        </form>
 
-    </body>
-{% endblock body_content%}
+        {% endblock body_content%}
 
-</html>

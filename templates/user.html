@@ -5,23 +5,18 @@
  <div id="question_table_container" align="center">
     <table id="question_table">
         <tr>
-            <th></th>
-            <th></th>
             <th>First name</th>
             <th>Last name</th>
             <th>e mail</th>
-            <th></th>
-            <th></th>
+
         </tr>
         {% for user in users %}
             <tr>
-                <td></td>
-                <td></td>
+
                 <td>{{ user["first_name"] }}</td>
                 <td>{{ user["last_name"] }}</td>
                 <td>{{ user["email"] }}</td>
-                <td></td>
-                <td></td>
+
             </tr>
         {% endfor %}
     </table>

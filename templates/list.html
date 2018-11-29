@@ -51,7 +51,7 @@
             </form>
                 {% for key in item %}
                     {% if key == 'title' %}
-                        <td> <a href="/question/{{ item['id'] }}" class="question_link"> {{ item[key] }} </a></td>
+                        <td> <a href="/question/{{ item['id'] }}" class="question_link" class="listed_link"> {{ item[key] }} </a></td>
                     {% else %}
                         <td>  {{ item[key] }}  </td>
                     {% endif %}
@@ -74,7 +74,7 @@
                     <tr>
                         {% for key in item %}
                             {% if key == 'title' %}
-                                <td> <a href="/question/{{ item['id'] }}" class="question_link"> {{ item[key] }} </a></td>
+                                <td> <a href="/question/{{ item['id'] }}" class="question_link" class="listed_link"> {{ item[key] }} </a></td>
                             {% else %}
                                 <td>  {{ item[key] }}  </td>
                             {% endif %}
