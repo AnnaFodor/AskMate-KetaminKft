@@ -1,16 +1,17 @@
-{% extends "layout.html" %}
+<html>
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
+
     <title>Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
-{% block body_content %}
+
 <body>
-{% block h1_content %}
-    <h1> ASK MATE </h1>
-{% endblock h1_content %}
+
+    <h1 id="login_register_header"> ASK . MATE </h1>
+
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class=flashes>
@@ -20,19 +21,24 @@
             </ul>
         {% endif %}
     {% endwith %}
-    <fieldset>
+
+    <div id="login_card" align="center">
+        <div id="login">
     <form action="/" method="post">
             <legend>Please enter your email and password!</legend>
             <p>Email</p>
-            <p><input type="text" name="email"></p>
+            <p><input type="text" name="email" class="credential_field"></p>
             <p>Password</p>
-            <p><input type="password" name="password"></p>
-            <p><input type="submit" value="Login"></p>
+            <p><input type="password" name="password" class="credential_field"></p>
+            <p><input type="submit" value="Login" class="comment_button" id="login_button"></p>
     </form>
+
     <form action="/registration" method="get">
-            <p><input type="submit" value="Registration"</p>
+            <p><input id="reg_button" class="comment_button" type="submit" value="Registration"></p>
     </form>
-    </fieldset>
+    </div>
+    </div>
+
 </body>
-{% endblock body_content%}
+
 </html>

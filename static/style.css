@@ -16,8 +16,6 @@ body {
 	float: left;
 }
 
-#top2{}
-
 .page_title{
 	font-size: 40px;
 	width: auto;
@@ -207,19 +205,180 @@ body {
 
 #answer_container{
 	float: left;
-	width: 40%;
+	width: 100%;
 	height: auto;
+	border: 1px solid #86C232;
+	border-radius: 20px;
+	padding: 10px;
+	table-layout: fixed;
+}
+
+#answer_table{
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100%;
+}
+
+#answer_box_container{
+	float: bottom;
+	margin-bottom: 30px;
+	margin-top: 30px;
+	width: 300px;
+
+}
+
+#answer_box{
+	clear: both;
+	float: left;
+	width: 100%;
+	margin-top: 20px;
 	border: 1px solid #86C232;
 	border-radius: 20px;
 	padding: 10px;
 }
 
-#answer_table{
-	border-collapse: collapse;
+.answer_field{
+	width: 75%;
+	height: 50px;
+	border-radius: 20px;
+	outline: none;
+
 }
 
-#answer_table, td{
-	margin: 5px;
-	padding: 5px;
+.answer_button{
+	float: right;
+	background-color: #222629;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #86C232;
+	padding-right: 5px;
+	color: white;
+	height: 40px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+}
 
+
+#comment_container{
+	float: right;
+	width: 100%;
+	height: auto;
+	border: 1px solid #86C232;
+	border-radius: 20px;
+	padding: 10px;
+	table-layout: fixed;
+}
+
+#comment_box{
+	clear: both;
+	float: right;
+	width: 100%;
+	margin-top: 20px;
+	border: 1px solid #86C232;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+
+#comment_table{
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100%;
+}
+
+.comment_field{
+	width: 75%;
+	height: 50px;
+	border-radius: 20px;
+	outline: none;
+}
+
+.comment_button{
+	float: right;
+	background-color: #222629;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #86C232;
+	padding-right: 5px;
+	color: white;
+	height: 40px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+
+#answers{
+	width: 45%;
+	float: left;
+	margin-left: 10px;
+}
+
+#comments{
+	width: 45%;
+	float: right;
+	margin-right: 10px;
+}
+
+
+#answers_and_comments{
+	width: 100%;
+	height: auto;
+}
+
+#login_register_header{
+	font-size: 40px;
+	width: 98%;
+	border: 3px solid #86C232;
+  	padding: 8px 16px;
+	border-radius: 100px;
+  	background: #86C232;
+	font-weight: bolder;
+	letter-spacing: 8px;
+	text-align: right;
+	margin-right: 10px;
+}
+
+#login_card{
+	width: 100%;
+}
+
+#login{
+	border: 1px solid #86C232;
+	width: 20%;
+	margin-top: 250px;
+	border-radius: 20px;
+	padding: 20px;
+	padding-bottom: 60px;
+}
+
+#login_button{
+	float: right;
+	width: 45%;
+}
+
+#reg_button{
+	float: left;
+	width: 45%;
+}
+
+#register_button{
+	width: 45%;
+	background-color: #222629;
+	outline: none;
+	border-radius: 20px;
+	border: 1px solid #86C232;
+	padding-right: 5px;
+	color: white;
+	height: 40px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+
+.credential_field{
+	width: 90%;
+	height: 30px;
+	font-size: 20px;
+	border-radius: 20px;
 }

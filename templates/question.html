@@ -25,11 +25,15 @@
 
     </div>
 
+
     <div id="message_container">
     <h3>{{ question["message"] }}</h3>
         <p> Votes: {{ question["vote_number"] }}</p>
     </div>
 
+    <div id="answers_and_comments">
+
+    <div id="answers">
     <div id="answer_container">
     <p align="center" >Answers:</palign>
     <table id="answer_table">
@@ -46,15 +50,22 @@
         </tr>
         {% endfor %}
     </table>
+     </div>
 
+    <div id="answer_box">
     <form method="post" action="/add_answer/{{ question["id"] }}">
-        <textarea name="message" rows="5" cols="40"></textarea>
-        <input type="submit" value="Post Answer">
+        <textarea class="answer_field" name="message"></textarea>
+        <input type="submit" value="Post Answer" class="answer_button">
     </form>
     </div>
-    <p>Comments:</p>
+    </div>
 
-    <table align="center">
+
+    <div id="comments">
+    <div id="comment_container">
+    <p align="center">Comments:</p>
+
+    <table id="comment_table">
         {% for item in comments %}
             <tr>
                 {% for key in item %}
@@ -63,11 +74,16 @@
             </tr>
         {% endfor %}
     </table>
+    </div>
 
+    <div id="comment_box">
     <form method="post" action="/add_comment/{{ question["id"] }}">
-        <textarea name="message" rows="5" cols="40"></textarea>
-        <input type="submit" value="Add Comment">
+        <textarea name="message" rows="5" cols="40" class="comment_field"></textarea>
+        <input type="submit" value="Add Comment" class="comment_button">
     </form>
+    </div>
+    </div>
 
 
+    </div>
 {% endblock body_content%}
