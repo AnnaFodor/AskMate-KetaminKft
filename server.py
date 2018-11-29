@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, abort
 import os
 import data_manager
 import util
@@ -91,8 +91,7 @@ def delete_question(id):
             data_manager.delete_row("question", "id", id)
             return redirect(url_for("route_list"))
     else:
-        return render_template("bazdmeg_magad")
-
+        abort(404)
 
 
 @app.route("/edit_question/<id>", methods=["GET", "POST"])
@@ -106,7 +105,7 @@ def edit_question(id):
             return redirect("/question/" + str(id))
         question_details = data_manager.get_question_details(id)
         return render_template("ask-question.html", question_details=question_details)
-    return render_template("bazdmeg_magad")
+    abort(404)
 
 
 @app.route("/search_question", methods=["POST"])
@@ -121,7 +120,14 @@ def search_question():
 @login_required
 def route_question_voting_up(id):
     vote = "Vote up"
-    data_manager.change_vote_number(vote, id)
+    up_or_cre = data_manager.get_user_vote_number(session["user_id"],id)
+    try:
+        if up_or_cre['vote_num'] != 1 or up_or_cre == None:
+            data_manager.edit_or_create_user_vote_number(id,session["user_id"], +1, up_or_cre)
+            data_manager.change_vote_number(vote, id)
+    except TypeError:
+        data_manager.edit_or_create_user_vote_number(id, session["user_id"], +1, None)
+        data_manager.change_vote_number(vote, id)
     return redirect("/index")
 
 
@@ -129,7 +135,15 @@ def route_question_voting_up(id):
 @login_required
 def route_question_voting_down(id):
     vote = "Vote down"
-    data_manager.change_vote_number(vote, id)
+    up_or_cre = data_manager.get_user_vote_number(session["user_id"], id)
+    print(up_or_cre)
+    try:
+        if up_or_cre['vote_num'] != -1 or up_or_cre == None:
+            data_manager.edit_or_create_user_vote_number(id,session["user_id"], -1, up_or_cre)
+            data_manager.change_vote_number(vote, id)
+    except TypeError:
+        data_manager.edit_or_create_user_vote_number(id, session["user_id"], -1, None)
+        data_manager.change_vote_number(vote, id)
     return redirect("/index")
 
 

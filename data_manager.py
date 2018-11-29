@@ -92,6 +92,31 @@ def change_vote_number(cursor, vote, id):
                     ''',
                    {'id': id, 'vote_num': vote_num})
 
+@connection.connection_handler
+def get_user_vote_number(cursor, user_id, question_id):
+    query= """SELECT vote_num FROM vote
+            WHERE (user_id=%(user_id)s) AND (question_id=%(question_id)s)"""
+    params={"question_id":question_id,
+            "user_id":user_id}
+    cursor.execute(query, params)
+    return cursor.fetchone()
+
+@connection.connection_handler
+def edit_or_create_user_vote_number(cursor, question_id, user_id, vote_num, up_or_cre):
+    if up_or_cre != None:
+        query="""UPDATE vote SET vote_num = %(vote_num)s
+                    WHERE (user_id=%(user_id)s) AND (question_id=%(question_id)s)"""
+        params = { "question_id":question_id,
+                   "user_id":user_id,
+                   "vote_num":vote_num}
+        cursor.execute(query,params)
+    else:
+        query="""INSERT INTO vote (question_id, user_id, vote_num)
+                VALUES (%(question_id)s, %(user_id)s, %(vote_num)s)"""
+        params = {"question_id": question_id,
+                  "user_id": user_id,
+                  "vote_num": vote_num}
+        cursor.execute(query, params)
 
 @connection.connection_handler
 def get_current_answer_details(cursor, id, new_message):
