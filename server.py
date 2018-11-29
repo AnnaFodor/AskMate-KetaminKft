@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, abort
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 import data_manager
 import util
@@ -39,7 +39,7 @@ def register_new_user():
             data_manager.register_user(usr_input)
             return redirect("/")
         except Exception:
-            flash('Email already exists.')
+            flash('Email already exists')
             return redirect("/")
     return render_template("registration.html", action="new_user")
 
@@ -48,7 +48,7 @@ def register_new_user():
 @login_required
 def route_list():
     if request.method == "GET":
-        questions = data_manager.show_questions()
+        questions = data_manager.show_questions_by_order('desc', 'time')
         return render_template('list.html', questions=questions, action=None)
     else:
         questions = data_manager.show_questions_by_order(request.form['direction'],
@@ -206,6 +206,11 @@ def login():
     return render_template("login.html")
 
 
+@app.route("/users")
+@login_required
+def list_users():
+    users = data_manager.get_user_data()
+    return render_template("user.html", users=users)
 
 
 
