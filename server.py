@@ -3,14 +3,29 @@ import os
 import data_manager
 import util
 from datetime import datetime
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
-@app.before_first_request
-def clear_session():
+@app.route("/log_out")
+def log_out():
     session.clear()
+    return redirect(url_for("login"))
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+
+
 
 
 @app.route("/registration", methods=["GET", "POST"])
@@ -28,6 +43,7 @@ def register_new_user():
 
 
 @app.route("/index", methods=["POST", "GET"])
+@login_required
 def route_list():
     if request.method == "GET":
         questions = data_manager.show_questions()
@@ -39,6 +55,7 @@ def route_list():
 
 
 @app.route("/ask-question", methods=["GET", "POST"])
+@login_required
 def route_ask_question():
     if request.method == "POST":
         usr_input = request.form.to_dict()
@@ -51,6 +68,7 @@ def route_ask_question():
 
 
 @app.route("/question/<id>", methods=["GET", "POST"])
+@login_required
 def route_question(id):
     if request.method == "GET":
         questions = data_manager.get_question_details(id)
@@ -60,7 +78,9 @@ def route_question(id):
         # all_tags = data_manager.get_all_tags()
         return render_template("question.html", question=questions, answers=answers, comments=comments)
 
+
 @app.route("/delete/<id>", methods=["POST"])
+@login_required
 def delete(id):
     tables = ["comment", "answer"]
     for table in tables:
@@ -70,6 +90,7 @@ def delete(id):
 
 
 @app.route("/edit_question/<id>", methods=["GET", "POST"])
+@login_required
 def edit_question(id):
     if request.method == "POST":
         usr_input = request.form.to_dict()
@@ -79,7 +100,9 @@ def edit_question(id):
     question_details = data_manager.get_question_details(id)
     return render_template("ask-question.html", question_details=question_details)
 
+
 @app.route("/search_question", methods=["POST"])
+@login_required
 def search_question():
     search_parameter = request.form["search_parameter"]
     search_result = data_manager.search_question(search_parameter)
@@ -87,6 +110,7 @@ def search_question():
 
 
 @app.route("/question/vote_up/<id>", methods=["POST"])
+@login_required
 def route_question_voting_up(id):
     vote = "Vote up"
     data_manager.change_vote_number(vote, id)
@@ -94,6 +118,7 @@ def route_question_voting_up(id):
 
 
 @app.route("/question/vote_down/<id>", methods=["POST"])
+@login_required
 def route_question_voting_down(id):
     vote = "Vote down"
     data_manager.change_vote_number(vote, id)
@@ -102,6 +127,7 @@ def route_question_voting_down(id):
 
 
 @app.route("/answer/<answer_id>/edit", methods=["GET", "POST"])
+@login_required
 def route_edit_answer(answer_id):
     answer_detail = data_manager.get_the_answer(answer_id)
     if request.method == "GET":
@@ -114,6 +140,7 @@ def route_edit_answer(answer_id):
 
 
 @app.route("/add_answer/<id>", methods=["POST"])
+@login_required
 def route_add_answer(id):
     new_answer_details = request.form.to_dict()
     new_answer_details["submission_time"] = datetime.now()
@@ -124,6 +151,7 @@ def route_add_answer(id):
 
 
 @app.route("/add_comment/<id>", methods=["POST"])
+@login_required
 def add_comment(id):
     usr_input = request.form.to_dict()
     usr_input['question_id'] = id
@@ -136,6 +164,7 @@ def add_comment(id):
 
 
 @app.route("/question/<id>/add_tag", methods=["GET", "POST"])
+@login_required
 def add_new_tag(id):
     if request.method == "GET":
         tags = data_manager.get_all_tags()
@@ -147,6 +176,7 @@ def add_new_tag(id):
 
 
 @app.route("/question/add_new_tag_to_question/<id>", methods=["POST"])
+@login_required
 def add_new_tag_to_question(id):
     tag_to_add = request.form["available_tags"]
     tag_id = data_manager.fetch_tag_id_by_tag_name(tag_to_add)
