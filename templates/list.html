@@ -44,35 +44,40 @@
 
             {% if action == None %}
 
-            <table align="center">
-                <th></th>
-                <th></th>
-                <th>Id</th>
-                <th>Votes</th>
-                <th>Title</th>
-                <th>Submission Time</th>
-                {% for item in questions %}
-                    <tr>
-                    <form action="/question/vote_up/{{ item['id'] }}" method="post">
-                    <td>
-                        <input type="submit" name="vote" value="Vote up" >
-                    </td>
-                    </form>
-                    <form action="/question/vote_down/{{ item['id'] }}" method="post">
-                    <td>
-                        <input type="submit" value="Vote down" name="vote">
-                    </td>
-                    </form>
-                        {% for key in item %}
-                            {% if key == 'title' %}
-                                <td> <a href="/question/{{ item['id'] }}"> {{ item[key] }} </a></td>
-                            {% else %}
-                                <td>  {{ item[key] }}  </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
+
+    <div id="question_table_container" align="center">
+    <table id="question_table">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Id</th>
+            <th>Votes</th>
+            <th>Title</th>
+            <th>Submission Time</th>
+        </tr>
+        {% for item in questions %}
+            <tr>
+            <form action="/question/vote_up/{{ item['id'] }}" method="post">
+            <td>
+                <input type="image" src="/static/like.png" alt="Submit" name="vote" value="Vote up" class="vote_button" height="30">
+            </td>
+            </form>
+            <form action="/question/vote_down/{{ item['id'] }}" method="post">
+            <td>
+                <input type="image" src="/static/dislike.png" alt="Submit" name="vote" value="Vote down" class="vote_button" height="30">
+            </td>
+            </form>
+                {% for key in item %}
+                    {% if key == 'title' %}
+                        <td> <a href="/question/{{ item['id'] }}" class="question_link"> {{ item[key] }} </a></td>
+                    {% else %}
+                        <td>  {{ item[key] }}  </td>
+                    {% endif %}
                 {% endfor %}
-            </table align="center">
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
 
             {% endif %}
             {% if action == "search" %}
