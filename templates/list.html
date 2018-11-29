@@ -3,27 +3,6 @@
 {% block body_content %}
 
     <div id="index_content">
-
-
-    <div id="sorting_container" align="center">
-    <form action="/index" method="post">
-        <select name="order_type" class="dropdown">
-            <option value="" disabled selected hidden>Select ordering </option>
-            <option value="time">Submission Time</option>
-            <option value="vote_numbers">Vote Numbers</option>
-        </select>
-
-        <select name="direction" class="dropdown">
-            <option value="" disabled selected hidden>Select direction </option>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-        </select>
-
-        <input type="submit" value="Submit" class="sort_button">
-    </form>
-    </div>
-
-
     {% if action == None %}
 
 
