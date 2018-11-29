@@ -1,86 +1,71 @@
 {% extends "layout.html" %}
 
+{% block body_content %}
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        {% block title_content %}
-            <title>Ask mate - List</title>
-        {% endblock title_content %}
-    </head>
-    {% block body_content %}
-        <body>
-            {% block h1_content %}
-                <h1> ASK MATE </h1>
-            {% endblock h1_content %}
-            {% block h4_content %}
-                <h4>
-                    <a href="/ask-question">Ask a question</a>
-                </h4>
-            {% endblock h4_content %}
-            <form action="/" method="post">
-                <select name="order_type">
-                    <option value="" disabled selected hidden>Select ordering </option>
-                    <option value="time">Submission Time</option>
-                    <option value="vote_numbers">Vote Numbers</option>
-                </select>
+    <div id="index_content">
 
-                <select name="direction">
-                    <option value="" disabled selected hidden>Select direction </option>
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
 
-                <input type="submit" value="Submit">
+    <div id="sorting_container" align="center">
+    <form action="/" method="post">
+        <select name="order_type" class="dropdown">
+            <option value="" disabled selected hidden>Select ordering </option>
+            <option value="time">Submission Time</option>
+            <option value="vote_numbers">Vote Numbers</option>
+        </select>
+
+        <select name="direction" class="dropdown">
+            <option value="" disabled selected hidden>Select direction </option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+
+        <input type="submit" value="Submit" class="sort_button">
+    </form>
+    </div>
+
+
+    {% if action == None %}
+
+
+    <div id="question_table_container" align="center">
+    <table id="question_table">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Id</th>
+            <th>Votes</th>
+            <th>Title</th>
+            <th>Submission Time</th>
+        </tr>
+        {% for item in questions %}
+            <tr>
+            <form action="/question/vote_up/{{ item['id'] }}" method="post">
+            <td>
+                <input type="submit" name="vote" value="Vote up" class="vote_button">
+            </td>
             </form>
-
-            <form action="/search_question" method="post">
-                <textarea row="1" cols="40" name="search_parameter" placeholder="What would you like to know?"></textarea>
-                <input type="submit" value="GO!">
+            <form action="/question/vote_down/{{ item['id'] }}" method="post">
+            <td>
+                <input type="submit" value="Vote down" name="vote" class="vote_button">
+            </td>
             </form>
-            </br>
-            </br>
-
-            {% if action == None %}
-
-            <table align="center">
-                <th></th>
-                <th></th>
-                <th>Id</th>
-                <th>Votes</th>
-                <th>Title</th>
-                <th>Submission Time</th>
-                {% for item in questions %}
-                    <tr>
-                    <form action="/question/vote_up/{{ item['id'] }}" method="post">
-                    <td>
-                        <input type="submit" name="vote" value="Vote up" >
-                    </td>
-                    </form>
-                    <form action="/question/vote_down/{{ item['id'] }}" method="post">
-                    <td>
-                        <input type="submit" value="Vote down" name="vote">
-                    </td>
-                    </form>
-                        {% for key in item %}
-                            {% if key == 'title' %}
-                                <td> <a href="/question/{{ item['id'] }}"> {{ item[key] }} </a></td>
-                            {% else %}
-                                <td>  {{ item[key] }}  </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
+                {% for key in item %}
+                    {% if key == 'title' %}
+                        <td> <a href="/question/{{ item['id'] }}" class="question_link"> {{ item[key] }} </a></td>
+                    {% else %}
+                        <td>  {{ item[key] }}  </td>
+                    {% endif %}
                 {% endfor %}
-            </table align="center">
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
 
-            {% endif %}
-            {% if action == "search" %}
-                <br><a href="/index">Back to the main page</a>
+    {% endif %}
+    {% if action == "search" %}
 
-                <h3>Search results:</h3>
-
-            <table align="center">
+        <div id="question_table_container">
+            <table id="question_table">
                 <th>Id</th>
                 <th>Votes</th>
                 <th>Title</th>
@@ -89,7 +74,7 @@
                     <tr>
                         {% for key in item %}
                             {% if key == 'title' %}
-                                <td> <a href="/question/{{ item['id'] }}"> {{ item[key] }} </a></td>
+                                <td> <a href="/question/{{ item['id'] }}" class="question_link"> {{ item[key] }} </a></td>
                             {% else %}
                                 <td>  {{ item[key] }}  </td>
                             {% endif %}
@@ -97,8 +82,9 @@
                     </tr>
                 {% endfor %}
             </table>
+        </div>
 
-            {% endif %}
-        </body>
-    {% endblock body_content%}
-</html>
+    {% endif %}
+
+    </div>
+{% endblock body_content %}
