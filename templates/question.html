@@ -1,84 +1,38 @@
 {% extends "layout.html" %}
 
 
-<html>
-    <head>
-        {% block title_content %}
-        <title>Question</title>
-        {% endblock title_content %}
-    </head>
-
 {% block body_content %}
-    <body>
-    {% block h1_content %}
-        <h1> ASK MATE </h1>
-    {% endblock h1_content %}
-    <table align="center">
-        <tr>
-            <td>
-            </td>
-            <td>
-                <h1>{{ question["vote_number"] }}</h1>
-            </td>
-            <td>
-                <h1>{{ question["title"] }}</h1>
-            </td>
-            <td>
-                <a href="/edit_question/{{ question["id"] }}" class="button">Edit Question</a>
-            </td>
-            <td>
-                <form method="post" action="/delete/{{ question["id"] }}">
-                    <input type="submit" value="Delete Question">
+
+    <div id="record_container">
+
+            <div id="record_title">
+            <h1 class="record_title">{{ question["title"] }}</h1>
+            </div>
+
+            <div id="question_buttons">
+                <div id="edit_question_button">
+                <form method="get" action="/edit_question/{{ question["id"] }}" >
+                <input type="submit" value="Edit Question">
                 </form>
-            </td>
-        </tr>
-    </table>
+                </div
+            </div>
+
+                <div id="delete_question_button">
+                <form method="post" action="/delete/{{ question["id"] }}">
+                <input type="submit" value="Delete Question">
+                </form>
+                </div>
+
+    </div>
+
+    <div id="message_container">
     <h3>{{ question["message"] }}</h3>
+        <p> Votes: {{ question["vote_number"] }}</p>
+    </div>
 
-{#    <p>TAGS</p>#}
-{#    <table align="center">#}
-{#        <tr>#}
-{#            {% for element in tags %}#}
-{#                {% for key in element %}#}
-{#                    <td>{{ element[key] }}</td>#}
-{#                {% endfor %}#}
-{#            {% endfor %}#}
-{#        </tr>#}
-{#    </table>#}
-
-{#    <p>#}
-{#        <table align="center">#}
-{#            <tr>#}
-{#                <form action="/question/add_new_tag_to_question/{{ question["id"] }}" method="post">#}
-{#                <td>#}
-{#                    <select name="available_tags">#}
-{#                        <option value="" disabled selected hidden>Select new tag to add</option>#}
-{#                        {% for element in all_tags  %}#}
-{#                            {% for key in element %}#}
-{#                            <option value="{{ element[key] }}">{{ element[key] }}</option>#}
-{#                            {% endfor %}#}
-{#                        {% endfor %}#}
-{#                    </select>#}
-{#                </td>#}
-{#                <td>#}
-{#                    <input type="submit" value="Update question tags">#}
-{#                </td>#}
-{#                </form>#}
-{#            </tr>#}
-{#        </table>#}
-{#    </p>#}
-
-
-{#    <p>#}
-{#        <form action="/question/{{ question["id"] }}/add_tag" method="get">#}
-{#            <input type="submit" name="go_to_add_tag_page" value="Need a new tag? Add it!">#}
-{#        </form>#}
-{#    </p>#}
-
-    <br>
-    <br>
-
-    <table align="center">
+    <div id="answer_container">
+    <p align="center" >Answers:</palign>
+    <table id="answer_table">
         {% for item in answers %}
         <tr>
             {% for key in item %}
@@ -97,7 +51,7 @@
         <textarea name="message" rows="5" cols="40"></textarea>
         <input type="submit" value="Post Answer">
     </form>
-
+    </div>
     <p>Comments:</p>
 
     <table align="center">
@@ -114,6 +68,6 @@
         <textarea name="message" rows="5" cols="40"></textarea>
         <input type="submit" value="Add Comment">
     </form>
-    </body>
+
+
 {% endblock body_content%}
-</html>

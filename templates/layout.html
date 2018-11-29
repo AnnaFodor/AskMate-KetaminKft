@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html>
+
+
     <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    {% block title_content %}{% endblock %}
+
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
 
     </head>
     <body>
-        <hr>
+
+        <div id="header">
+            <div id="top1" class="button" ><a id="ask_question" href="/ask-question" >Ask a question</a></div>
+            <div id=top2" class="page_title" align="right">ASK . MATE</div>
+
+        </div>
+
+        <form action="/search_question" method="post" class="search_container">
+        <input type="text" id="search_bar" name="search_parameter" placeholder="  What would you like to know?">
+        <input type="submit" value="GO!" id="search_button">
+        </form>
+
         {% block body_content %}
-            {% block h1_content %}
-            {% endblock h1_content %}
         {% endblock body_content%}
 
-{#        {% with messages = get_flashed_messages() %}#}
-{#            {% if messages %}#}
-{#                <ul class=flashes>#}
-{#                    {% for message in messages %}#}
-{#                        <li>{{ message }}</li>#}
-{#                    {% endfor %}#}
-{#                </ul>#}
-{#            {% endif %}#}
-{#        {% endwith %}#}
-    </body>
+</body>
 </html>
